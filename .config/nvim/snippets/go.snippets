@@ -1,0 +1,67 @@
+snippet now
+	now := time.Now()
+
+snippet basic
+	import (
+		. "github.com/heimonsy/solutions/leetcode/go/basic"
+	)
+
+snippet rne
+	require.NoError(t, err)
+
+snippet resn
+	require.Equal(t, sql.ErrNoRows, err)
+
+snippet erf
+	if err != nil {
+		log.Fatal(err)
+	}
+
+snippet err
+	if err != nil {
+		return err
+	}
+
+snippet en1
+	if err != nil {
+		return nil, err
+	}
+
+snippet en2
+	if err != nil {
+		return nil, nil, err
+	}
+
+snippet ges
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
+snippet max
+	func max(a, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
+
+snippet min
+	func min(a, b int) int {
+		if a < b {
+			return a
+		}
+		return b
+	}
+
+snippet ane
+	assert.NoError(t, err)
+
+snippet ae
+	assert.Error(t, err)
+
+snippet aln
+	assert.Len(t, ${0}, ${1})
+
+snippet tf
+	func ${0}(t *testing.T) {
+	}

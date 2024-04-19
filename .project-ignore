@@ -1,0 +1,6 @@
+/* 注意，项目内 .ignore 也会影响 fzf */
+*.json
+*.map
+vendor
+*.csv
+node_modules

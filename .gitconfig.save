@@ -1,0 +1,51 @@
+[user]
+    name = heimonsy
+    email = heimonsy@gmail.com
+[alias]
+    lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(black)%s%C(reset) %C(bold black)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+    lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(black)%s%C(reset) %C(bold black)— %an%C(reset)' --abbrev-commit
+    cr1 = fetch --all --prune
+    up = "!git remote update -p; git merge --ff-only @{u}"
+[push]
+    default = simple
+[http]
+     ; proxy = socks5://127.0.0.1:1080
+[https]
+     ; proxy = socks5://127.0.0.1:1080
+[filter "media"]
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
+[core]
+    editor = vim -f
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[color]
+	ui = true
+[filter "hawser"]
+    clean = git hawser clean %f
+    smudge = git hawser smudge %f
+    required = true
+[credential]
+    helper = store
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[commit]
+	; gpgsign = true
+[pull]
+	rebase = true
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = blue bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[init]
+	defaultBranch = main

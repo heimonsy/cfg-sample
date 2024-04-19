@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+sudo vm-routes
+
+multipass shell hwork

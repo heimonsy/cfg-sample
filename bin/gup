@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+cleanup_history_file=.git/git_clean_up_history.log
+DATE=$(date)
+
+echo "" >> $cleanup_history_file
+echo "====== $DATE =====" >> $cleanup_history_file
+
+git fetch origin --prune
+
+branches=$(git branch -vv | grep ': gone\]' | cut -d' '  -f3)
+for branch in $branches; do
+    resp=$(git branch -D $branch)
+    echo "branch $branch deleted"
+    echo $resp >> $cleanup_history_file
+done

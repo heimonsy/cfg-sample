@@ -1,0 +1,5 @@
+port = 2489
+allow = '192.168.99.0/24,192.168.66.0/24'
+trans-loopback = true
+trans-localfile = true
+line-ending = ''

@@ -1,0 +1,27 @@
+let mapleader = ","
+
+
+" Reload vimrc
+nmap <leader>s     :source ~/.ideavimrc<CR>
+
+inoremap jk <Esc>
+noremap ; :
+noremap 0 ^
+
+set clipboard+=unnamed
+
+" List of actions: :actionlist or http://keithlea.com/idea-actions/
+nmap <C-p>          :action GotoFile<CR>
+nmap <leader>ff     :action ReformatCode<CR>
+vnoremap <leader>ff :action ReformatCode<CR>
+
+nmap <C-c>          :action CloseEditor<CR>
+nmap <S-l>          :action NextTab<CR>
+nmap <S-h>          :action PreviousTab<CR>
+nmap <Esc>          :action PreviousTab<CR>
+nmap <leader>jr     :action Run<CR>
+nmap ]d             :action GotoNextError<CR>
+nmap [d             :action GotoPreviousError<CR>
+
+" nmap <C-z>          :action ActivateTerminalToolWindow<CR>
+

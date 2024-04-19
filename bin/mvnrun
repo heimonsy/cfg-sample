@@ -1,0 +1,65 @@
+#!/bin/sh
+
+mainClass=$1
+
+if [ -z "$mainClass" ]; then
+    mainClass=$(grep -o '<start-class>[^<]*</start-class>' pom.xml | sed -e 's/<start-class>//g' -e 's/<\/start-class>//g')
+fi
+
+if [ -z "$mainClass" ]; then
+    mainClass=$(grep -o '<mainClass>[^<]*</mainClass>' pom.xml | sed -e 's/<mainClass>//g' -e 's/<\/mainClass>//g')
+fi
+
+# function artifactIdToCamelCase() {
+#   local artifactId="$1"
+#   local camelCase=""
+#   local nextUpper=true
+#
+#   for (( i=0; i<${#artifactId}; i++ )); do
+#     local char="${artifactId:i:1}"
+#     if [[ "$char" == "-" ]]; then
+#       nextUpper=true
+#     else
+#       if [[ $nextUpper == true ]]; then
+#         camelCase+=$(echo "$char" | tr '[:lower:]' '[:upper:]')
+#         nextUpper=false
+#       else
+#         camelCase+="${char}"
+#       fi
+#     fi
+#   done
+#
+#   echo "$camelCase"
+# }
+#
+# if [ -z "$mainClass" ]; then
+#     groupId=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="groupId"]/text()' pom.xml)
+#     artifactId=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="artifactId"]/text()' pom.xml)
+#     className=$(artifactIdToCamelCase "$artifactId")
+#     mainClass="${groupId}.${artifactId}.${className}Application"
+# fi
+
+if [ -z "$mainClass" ]; then
+    mvn spring-boot:help > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "------------- Runing spring-boot:run -------------"
+        mvn spring-boot:run
+        exit $?
+    fi
+fi
+
+#########################
+## run class
+#########################
+
+# if dependency does not exists, copy it
+if [ ! -d "target/dependency" ]; then
+    echo "------------- Copying dependencies -------------"
+    mvn dependency:copy-dependencies -q
+fi
+
+mvn compile -DskipTests
+
+echo "------------- Runing $mainClass -------------"
+
+java -cp "target/classes:target/dependency/*" $mainClass

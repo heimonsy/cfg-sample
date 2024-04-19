@@ -1,0 +1,8 @@
+.cfg
+.cache
+.DS_Store
+Library
+Applications
+Develop
+.config/fish/fish_variables
+.config/fish/functions/fzf_key_bindings.fish

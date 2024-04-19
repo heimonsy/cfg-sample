@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+ifconfig | grep 192.168.99 > /dev/null
+has99=$?
+
+ifconfig | grep 192.168.66 > /dev/null
+has66=$?
+
+if [ $has99 = "0" ] ; then
+    cp -f ~/.config/lemonade.toml-99 ~/.config/lemonade.toml
+fi
+
+if [ $has66 = "0" ] ; then
+    cp -f ~/.config/lemonade.toml-66 ~/.config/lemonade.toml
+fi
+
+if (uname | grep "Darwin" > /dev/null); then
+    cp -f ~/.config/lemonade.toml-server ~/.config/lemonade.toml
+fi

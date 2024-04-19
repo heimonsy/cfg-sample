@@ -1,0 +1,4 @@
+patch:
+  style/horizontal: true  #无效的设置
+  schema_list:
+    - schema: luna_pinyin_simp

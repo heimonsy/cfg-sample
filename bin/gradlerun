@@ -1,0 +1,33 @@
+#!/bin/bash
+
+bootRun=$(gradle tasks | grep "^bootRun -")
+if [ -n "$bootRun" ]; then
+    echo "-------------------------------------------"
+    echo "------------- gradle boot run -------------"
+    echo "-------------------------------------------"
+    gradle bootRun
+    exit $?
+fi
+
+# if dependency does not exists, copy it
+if [ ! -d "build/dependency" ]; then
+    echo "------------- Copying dependencies -------------"
+    gradle build
+    jarFile=$(ls build/libs | grep jar | grep -v "plain")
+
+    unzip -q -o build/libs/$jarFile "BOOT-INF/lib/*"  -d /tmp/dependency
+    mv -f /tmp/dependency/BOOT-INF/lib build/dependency
+fi
+
+gradle compileJava
+
+mainClass=$1
+# if [ -z "$1" ]; then
+#     mainClass=$(cat build.gradle | grep mainClassName | cut -d '"' -f 2)
+# fi
+
+echo "-------------------------------------------"
+echo "------------- Runing $1 -------------"
+echo "-------------------------------------------"
+# java -cp build/classes/java/main $1
+java -cp "build/classes/java/main:build/libs/BOOT-INF/lib/*" $1
